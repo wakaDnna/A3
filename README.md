@@ -1,5 +1,5 @@
 # A3
-![potipoti](https://github.com/yamamoto-takumi/A3/assets/55730056/58388c1c-05e2-4585-95c1-8beae980d938)
+![potipoti](https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0)
 
 AアプリのAPIを管理します。
 
