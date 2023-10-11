@@ -1,7 +1,7 @@
 # A3
-![potipoti](https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0)
-
-AアプリのAPIを管理します。
+<p align="center">
+    <img src="https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0"/>
+</p>
 
 # 開発環境
 Python 3.11.5
@@ -13,11 +13,13 @@ Python 3.11.5
 erDiagram
     users{
         int id PK
-        string name
-        string display_id
+        string(50) name
+        string(50) display_id 
+        int followers_count
+        int following_count
         date birthday
-        string bio
-        string image
+        text bio
+        mediumblob image
     }
 
 ```
