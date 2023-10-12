@@ -20,6 +20,8 @@ erDiagram
         date birthday
         text bio
         mediumblob image
+        timestamp created_at
+        timestamp updated_at
     }
 
 ```
