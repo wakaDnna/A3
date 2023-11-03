@@ -6,6 +6,16 @@
 # 開発環境
 Python 3.11.5
 
+# デバッグ実行
+```
+uvicorn main:app --reload
+```
+http://127.0.0.1:8000
+にて起動する
+
+## swagger
+http://127.0.01:8000/docs
+
 # ER Diagram
 
 ```mermaid
