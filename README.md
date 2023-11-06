@@ -22,7 +22,7 @@ http://127.0.01:8000/docs
 
 erDiagram
     users{
-        int id PK
+        string id PK
         string(50) name
         string(50) display_id 
         int followers_count
@@ -35,3 +35,8 @@ erDiagram
     }
 
 ```
+
+コードファーストでいく
+fastapi crud generate　自動で
+swaggerはfastapi
+swagger から typescript client 自動生成ライブラリがある

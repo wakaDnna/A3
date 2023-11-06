@@ -1,40 +1,26 @@
-from typing import List, Optional
+from pydantic import BaseModel
+from typing import Optional
 from datetime import date, datetime
-from pydantic import BaseModel, ConfigDict
 
-# class UserBase(BaseModel):
-#     name: str
-#     display_id: str
-#     bio: str
-#     image: bytes
-#     followers_count: int
-#     following_count: int
-#     birthday: date
-#     created_at: datetime
-#     updated_at: datetime
+class UserBase(BaseModel):
+  id: Optional[str] = None
+  name: str
+  display_id: str
+  bio: Optional[str] = None
+  image: Optional[bytes] = None
+  followers_count: Optional[int] = None
+  following_count: Optional[int] = None
+  birthday: Optional[date] = None
+  created_at: datetime = datetime.now()
+  updated_at: datetime = datetime.now()
 
-class User(BaseModel):
-    id: str
-    name: str
-    display_id: str
-    bio: str
-    image: bytes
-    followers_count: int
-    following_count: int
-    birthday: date
-    created_at: datetime
-    updated_at: datetime
+class UserCreate(UserBase):
+  pass
 
-    model_config = ConfigDict(from_attributes=True)
+class User(UserBase):
+  id: str
+  created_at: datetime
+  updated_at: datetime
 
-class CreateUser(User):
-    id: str
-    name: str
-    display_id: str
-    bio: str
-    # image: bytes
-    followers_count: int
-    following_count: int
-    birthday: date
-    # created_at: datetime
-    # updated_at: datetime
+  class Config:
+      orm_mode = True
