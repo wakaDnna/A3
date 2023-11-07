@@ -4,7 +4,9 @@
 </p>
 
 # 開発環境
-Python 3.11.5
+Python 3.11.5  
+alembic 1.12.1
+
 
 # デバッグ実行
 ```
@@ -15,6 +17,20 @@ http://127.0.0.1:8000
 
 ## swagger
 http://127.0.01:8000/docs
+
+## alembic
+
+1. マイグレーションファイルを作成
+
+```
+alembic revision --autogenerate
+```
+
+2. マイグレーションの実施
+```
+alembic upgrade head
+```
+
 
 # ER Diagram
 
