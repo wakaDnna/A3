@@ -1,20 +1,17 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.models import User
-from app.schemas import  UserBase, UserCreate
-from app.database import get_db
-
-from fastapi_crudrouter import SQLAlchemyCRUDRouter
-
+from app.database import get_db, Session
+from app.crud.posts import posts_router
 
 app = FastAPI()
-router = SQLAlchemyCRUDRouter(
-    schema=UserBase,
-    create_schema=UserCreate,
-    db_model=User,
-    db=get_db,
-)
-app.include_router(router)
+
+app.include_router(router=posts_router)
+
+# @app.get('/users')
+# def read_users(offset: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+#     users = get_users(db, offset, limit)
+#     return users
+
 
 origins = ["*"]
 

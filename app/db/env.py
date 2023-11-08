@@ -2,13 +2,13 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+import sqlalchemy_utils
 
 from alembic import context
-import sys
-sys.path.append('C:/Users/dawan/source/A3/app')
 
 from database import Base
-import models
+from models.users import User
+from models.posts import Post
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -29,6 +29,18 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+def render_item(type_, obj, autogen_context):
+    """Apply custom rendering for selected items."""
+
+    if type_ == "type" and isinstance(
+        obj, sqlalchemy_utils.types.uuid.UUIDType
+    ):
+        autogen_context.imports.add("import sqlalchemy_utils")
+        autogen_context.imports.add("import uuid")
+        return "sqlalchemy_utils.types.uuid.UUIDType(binary=False), default=uuid.uuid4"
+    
+    return False
 
 
 def run_migrations_offline() -> None:
@@ -70,7 +82,9 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            render_item=render_item
         )
 
         with context.begin_transaction():

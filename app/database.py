@@ -5,13 +5,13 @@ from sqlalchemy.orm import sessionmaker
 url = "mysql+pymysql://user:test@localhost:3306/a-db"
 engine = create_engine(url, echo=False, pool_recycle=10)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
 # Dependency
 def get_db():
-    db = SessionLocal()
+    db = Session()
     try:
         print('db started.')
         yield db

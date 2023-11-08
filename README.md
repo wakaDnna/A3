@@ -20,13 +20,21 @@ http://127.0.01:8000/docs
 
 ## alembic
 
-1. マイグレーションファイルを作成
+1. はじめに
+alembic.iniのscript_locationのパスを変更  
+実行ディレクトリからenv.pyのあるディレクトリを指定する
 
 ```
-alembic revision --autogenerate
+script_location = ./db/
 ```
 
-2. マイグレーションの実施
+2. マイグレーションファイルを作成
+
+```
+alembic --config ./db/alembic.ini revision --autogenerate
+```
+
+3. マイグレーションの実施
 ```
 alembic upgrade head
 ```
