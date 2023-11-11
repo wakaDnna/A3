@@ -1,11 +1,12 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import get_db, Session
 from app.crud.posts import posts_router
+from app.crud.users import users_router
 
 app = FastAPI()
 
 app.include_router(router=posts_router)
+app.include_router(router=users_router)
 
 # @app.get('/users')
 # def read_users(offset: int = 0, limit: int = 100, db: Session = Depends(get_db)):

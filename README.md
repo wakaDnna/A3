@@ -60,6 +60,15 @@ erDiagram
 
 ```
 
+## 各種ルータについて
+usersやpostsルータに関して
+
+```
+db.query(ここ！)
+```
+queryに渡すのは**SQLAlchemyのモデル**を渡すようにすること！
+schemaはresponse_modelとして指定するもので、あくまでレスポンスの型を指定してあげるもの
+
 コードファーストでいく
 fastapi crud generate　自動で
 swaggerはfastapi
