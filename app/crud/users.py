@@ -17,7 +17,7 @@ def get_user(db: Session = Depends(get_db), user_id: str = ''):
     
     return db.query(User).filter(User.id == user_id).first()
 
-@users_router.put('/user', response_model=None)
+@users_router.post('/user', response_model=None)
 def create_user(db: Session = Depends(get_db), name: str = '', display_id: str = '', bio: str = ''):
     print('[create_users] start')
     user = User(
@@ -32,7 +32,7 @@ def create_user(db: Session = Depends(get_db), name: str = '', display_id: str =
 
     return user
 
-@users_router.post('/user', response_model=None)
+@users_router.put('/user', response_model=None)
 def update_user(db: Session = Depends(get_db), id: str = '', name:str = ''):
     print('[START] update user id:',id)
 
