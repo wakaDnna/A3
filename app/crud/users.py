@@ -4,23 +4,56 @@ from fastapi import APIRouter, Depends
 
 users_router = APIRouter()
 
-# @users_router.get('/user', response_model=None)
-# def get_user(db: Session, user_id: str):
-#     print('[get_user] start user_id:',user_id)
-#     return db.query(models.User).filter(models.User.id == user_id).first()
-
-# def get_user_by_name(db: Session, name: str):
-#     print('[get_user_by_name] start name:',name)
-#     return db.query(models.User).filter(models.User.name == name).first()
-
 @users_router.get('/users', response_model=None)
 def get_users(db: Session = Depends(get_db), offset: int = 0, limit: int = 100):
     print('[get_users] start')
     return db.query(User).offset(offset).limit(limit).all()
 
-# def create_user(db: Session, name: str, display_id: str):
-#     print('[create_users] start')
-#     db.add(models.User(name, display_id))
-#     db.commit()
+@users_router.get('/user', response_model=None)
+def get_user(db: Session = Depends(get_db), user_id: str = ''):
+    print('[get_user] start user_id:',user_id)
+    if user_id == '':
+        return None
+    
+    return db.query(User).filter(User.id == user_id).first()
 
-#     return 'success'
+@users_router.put('/user', response_model=None)
+def create_user(db: Session = Depends(get_db), name: str = '', display_id: str = '', bio: str = ''):
+    print('[create_users] start')
+    user = User(
+        name=name,
+        display_id=display_id,
+        bio=bio
+    )
+    db.add(user)
+    db.commit()
+
+    user = db.query(User).filter(User.name == name).first()
+
+    return user
+
+@users_router.post('/user', response_model=None)
+def update_user(db: Session = Depends(get_db), id: str = '', name:str = ''):
+    print('[START] update user id:',id)
+
+    user = db.query(User).filter(User.id == id).first()
+    if user is None:
+        return '該当データがありませんでした'
+    
+    user.name = name
+    db.commit()
+
+    return user
+
+@users_router.delete('/user', response_model=None)
+def delete_user(db: Session = Depends(get_db), id: str = ''):
+    print('[START] delete user id:',id)
+
+    user = db.query(User).filter(User.id == id).first()
+    if user is None:
+        return '該当のユーザは存在しません'
+    
+    db.delete(user)
+    db.commit()
+
+    return 'Deleted User id=' + id
