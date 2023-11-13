@@ -1,6 +1,4 @@
 from app.database import Session, get_db
-# import app.models.posts as models
-# from app.schemas.posts import Post
 from app.models.posts import Post
 from fastapi import APIRouter, Depends
 
@@ -16,7 +14,7 @@ def get_post(db: Session = Depends(get_db), id:int = 0):
     print('[START] get post id:',id)
     return db.query(Post).filter(Post.id == id).first()
 
-@posts_router.post('/posts/{post_id}', tags=['Post'], response_model=None)
+@posts_router.post('/posts', tags=['Post'], response_model=None)
 def create_post(db: Session = Depends(get_db), user_id: str = '', content: str = ''):
     print('[START] create post')
     post = Post(
@@ -26,7 +24,7 @@ def create_post(db: Session = Depends(get_db), user_id: str = '', content: str =
     db.add(post)
     db.commit()
 
-    return db.query(Post).filter(Post)
+    return db.query(Post).all()
 
 @posts_router.put('/posts/{post_id}', tags=['Post'], response_model=None)
 def update_post(db: Session = Depends(get_db), post_id: int = 0, content: str = ''):
@@ -52,4 +50,4 @@ def delete_post(db: Session = Depends(get_db), post_id: int = 0):
     db.delete(post)
     db.commit()
 
-    return 'Deleted Post id=' + post_id
+    return {"message": "Deleted Post", "post_id": post.id}

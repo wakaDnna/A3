@@ -7,7 +7,7 @@ from app.database import Base
 
 class Post(Base):
     __tablename__ = "posts"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String(36), ForeignKey("users.id"))
     content = Column(String(500), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
