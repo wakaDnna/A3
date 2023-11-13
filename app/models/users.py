@@ -18,5 +18,3 @@ class User(Base):
     birthday = Column(Date, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=True, default=func.now(), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
-
-    
