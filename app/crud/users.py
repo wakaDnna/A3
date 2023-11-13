@@ -4,12 +4,12 @@ from fastapi import APIRouter, Depends
 
 users_router = APIRouter()
 
-@users_router.get('/users', tags=['User'], response_model=None)
+@users_router.get('/users', tags=['User'], summary="ユーザ情報一覧を取得", description="ユーザの一覧を取得します", response_model=None)
 def get_users(db: Session = Depends(get_db), offset: int = 0, limit: int = 100):
     print('[get_users] start')
     return db.query(User).offset(offset).limit(limit).all()
 
-@users_router.get('/users/{user_id}', tags=['User'], response_model=None)
+@users_router.get('/users/{user_id}', tags=['User'], summary="1件のユーザ情報を取得", description="ユーザIDからユーザ情報を検索します", response_model=None)
 def get_user(db: Session = Depends(get_db), user_id: str = ''):
     print('[get_user] start user_id:',user_id)
     if user_id == '':
@@ -17,7 +17,7 @@ def get_user(db: Session = Depends(get_db), user_id: str = ''):
     
     return db.query(User).filter(User.id == user_id).first()
 
-@users_router.post('/users', tags=['User'], response_model=None)
+@users_router.post('/users', tags=['User'], summary="ユーザを新規作成", description="ユーザを新規作成します", response_model=None)
 def create_user(db: Session = Depends(get_db), name: str = '', display_id: str = '', bio: str = ''):
     print('[create_users] start')
     user = User(
@@ -32,7 +32,7 @@ def create_user(db: Session = Depends(get_db), name: str = '', display_id: str =
 
     return user
 
-@users_router.put('/users/{user_id}', tags=['User'], response_model=None)
+@users_router.put('/users/{user_id}', tags=['User'], summary="ユーザ情報を更新", description="指定されたユーザIDのユーザ情報を更新します", response_model=None)
 def update_user(db: Session = Depends(get_db), id: str = '', name:str = ''):
     print('[START] update user id:',id)
 
@@ -45,7 +45,7 @@ def update_user(db: Session = Depends(get_db), id: str = '', name:str = ''):
 
     return user
 
-@users_router.delete('/users/{user_id}', tags=['User'], response_model=None)
+@users_router.delete('/users/{user_id}', tags=['User'], summary="ユーザを削除", description="指定されたユーザIDのユーザ情報を削除します", response_model=None)
 def delete_user(db: Session = Depends(get_db), id: str = ''):
     print('[START] delete user id:',id)
 
