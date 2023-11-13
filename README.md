@@ -5,8 +5,8 @@
 
 # 開発環境
 Python 3.11.5  
-alembic 1.12.1
-
+alembic 1.12.1  
+pydantic 2.4.2  
 
 # デバッグ実行
 ```

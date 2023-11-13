@@ -6,6 +6,7 @@ from datetime import date, datetime
 from app.models.posts import Post
 
 class UserBase(BaseModel):
+   id: str
    name: str
    display_id: str
    bio: Optional[str] = None
@@ -18,7 +19,19 @@ class UserBase(BaseModel):
 
    model_config = ConfigDict(from_attributes=True)
 
-# class User(UserBase):
-#    id: str
-   # posts: Optional[List['Post']] = []
+class CreateUser(BaseModel):
+   name: str
+   display_id: str
+   bio: Optional[str] = None
+
+class UpdateUser(BaseModel):
+   name: str
+   display_id: str
+   bio: str
+   birthday: date
+
+class DeleteUser(BaseModel):
+   user_id: str
+   name: str
+   display_id: str
    
