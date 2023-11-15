@@ -8,12 +8,6 @@ app = FastAPI()
 app.include_router(router=posts_router)
 app.include_router(router=users_router)
 
-# @app.get('/users')
-# def read_users(offset: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-#     users = get_users(db, offset, limit)
-#     return users
-
-
 origins = ["*"]
 
 app.add_middleware(

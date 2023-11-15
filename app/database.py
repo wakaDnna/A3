@@ -13,7 +13,6 @@ Base = declarative_base()
 def get_db():
     db = Session()
     try:
-        print('db started.')
         yield db
     finally:
         db.close()

@@ -10,7 +10,7 @@ pydantic 2.4.2
 
 # デバッグ実行
 ```
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 http://127.0.0.1:8000
 にて起動する

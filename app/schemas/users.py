@@ -1,9 +1,7 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional, List
-from uuid import UUID
+from typing import Optional
 from datetime import date, datetime
 
-from app.models.posts import Post
 
 class UserBase(BaseModel):
    id: str

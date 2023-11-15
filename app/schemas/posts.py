@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, field_validator,PydanticUserError
+from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
