@@ -1,6 +1,6 @@
 # A3
 <p align="center">
-    <img src="https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0"/>
+    <img src="https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0" width='90%'/>
 </p>
 
 # 開発環境
