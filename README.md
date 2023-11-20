@@ -60,6 +60,25 @@ erDiagram
 
 ```
 
+## Typescirpt型定義ファイルの生成について
+openapi-typescript ^6.7.1を利用します
+1. パッケージインストール
+```bash
+npm install openapi-typescirpt -D
+```
+
+2. openapi.jsonのダウンロード
+swaggerを起動し、「http://127.0.0.1:8000/redoc」へアクセスし「openapi.json」をダウンロード
+
+TODO: 起動中のFastAPIから直接インプットできる方法を探す
+
+3. 型定義ファイルの生成
+```bash
+npx openapi-typescript {inputファイル} -o {出力先}
+
+npx openapi-typescript ./docs/openapi.json -o ./docs/a3-client.d.ts
+```
+
 ## 各種ルータについて
 usersやpostsルータに関して
 

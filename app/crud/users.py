@@ -1,7 +1,7 @@
 from app.database import Session, get_db
 from app.models.users import User
 from app.models.posts import Post
-from app.schemas.posts import PostBase
+from app.schemas.posts import PostBase, CreatePost
 from app.schemas.users import CreateUser, UserBase, UpdateUser, DeleteUser
 from fastapi import APIRouter, Depends
 from typing import List
@@ -40,6 +40,18 @@ def create_user(body: CreateUser, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.name == body.name).first()
 
     return user
+
+@users_router.post('/users/{user_id}/posts', tags=['User'], summary="新規投稿", description="新規に投稿を行います", response_model=List[PostBase])
+def create_post(body: CreatePost, user_id: str, db: Session = Depends(get_db)):
+    print('[START] create post')
+    post = Post(
+        user_id=user_id,
+        content=body.content
+    )
+    db.add(post)
+    db.commit()
+
+    return db.query(Post).filter(Post.user_id == user_id).all()
 
 @users_router.put('/users/{user_id}', tags=['User'], summary="ユーザ情報を更新", description="指定されたユーザIDのユーザ情報を更新します", response_model=UserBase)
 def update_user(body: UpdateUser, id: str = '', db: Session = Depends(get_db)):

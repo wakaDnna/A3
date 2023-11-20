@@ -11,11 +11,6 @@ export interface paths {
      * @description 全ての投稿を取得します
      */
     get: operations["get_posts_posts_get"];
-    /**
-     * 新規投稿
-     * @description 新規に投稿を行います
-     */
-    post: operations["create_post_posts_post"];
   };
   "/posts/{post_id}": {
     /**
@@ -33,6 +28,13 @@ export interface paths {
      * @description 指定された投稿を削除します
      */
     delete: operations["delete_post_posts__post_id__delete"];
+  };
+  "/posts/{user_id}": {
+    /**
+     * 新規投稿
+     * @description 新規に投稿を行います
+     */
+    post: operations["create_post_posts__user_id__post"];
   };
   "/users": {
     /**
@@ -63,6 +65,13 @@ export interface paths {
      */
     delete: operations["delete_user_users__user_id__delete"];
   };
+  "/users/{user_id}/posts": {
+    /**
+     * ユーザ投稿一覧取得
+     * @description 指定ユーザの投稿一覧を取得します
+     */
+    get: operations["read_posts_for_user_users__user_id__posts_get"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -71,8 +80,6 @@ export interface components {
   schemas: {
     /** CreatePost */
     CreatePost: {
-      /** User Id */
-      user_id: string;
       /** Content */
       content: string;
     };
@@ -217,31 +224,6 @@ export interface operations {
     };
   };
   /**
-   * 新規投稿
-   * @description 新規に投稿を行います
-   */
-  create_post_posts_post: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CreatePost"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PostBase"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /**
    * 1件の投稿内容を取得
    * @description 指定された投稿IDの投稿内容を取得します
    */
@@ -311,6 +293,36 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeletePost"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * 新規投稿
+   * @description 新規に投稿を行います
+   */
+  create_post_posts__user_id__post: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreatePost"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PostBase"][];
         };
       };
       /** @description Validation Error */
@@ -442,6 +454,31 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeleteUser"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * ユーザ投稿一覧取得
+   * @description 指定ユーザの投稿一覧を取得します
+   */
+  read_posts_for_user_users__user_id__posts_get: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PostBase"][];
         };
       };
       /** @description Validation Error */

@@ -1,0 +1,14 @@
+{
+  "name": "a3",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r     <img src=\"https://github.com/wakaDnna/A3/assets/147518230/f2d04341-0199-4be1-80c0-d690543a84d0\" width='90%'/>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "openapi-typescript": "^6.7.1"
+  }
+}
