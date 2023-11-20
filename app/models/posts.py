@@ -11,7 +11,3 @@ class Post(Base):
     user_id = Column(String(36), ForeignKey("users.id"))
     content = Column(String(500), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
-    model_config = ConfigDict(from_attributes=True, arbitrary_types_allowed=True)
-
-    # users = relationship("User")

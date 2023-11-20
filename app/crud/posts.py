@@ -16,11 +16,11 @@ def get_post(db: Session = Depends(get_db), id:int = 0):
     print('[START] get post id:',id)
     return db.query(Post).filter(Post.id == id).first()
 
-@posts_router.post('/posts', tags=['Post'], summary="新規投稿", description="新規に投稿を行います", response_model=List[PostBase])
-def create_post(body: CreatePost, db: Session = Depends(get_db)):
+@posts_router.post('/posts/{user_id}', tags=['Post'], summary="新規投稿", description="新規に投稿を行います", response_model=List[PostBase])
+def create_post(body: CreatePost, user_id: str, db: Session = Depends(get_db)):
     print('[START] create post')
     post = Post(
-        user_id=body.user_id,
+        user_id=user_id,
         content=body.content
     )
     db.add(post)
