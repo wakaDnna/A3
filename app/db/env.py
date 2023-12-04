@@ -9,6 +9,7 @@ from alembic import context
 from database import Base
 from models.users import User
 from models.posts import Post
+from models.likes import Like
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

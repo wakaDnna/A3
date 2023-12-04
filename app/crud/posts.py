@@ -1,20 +1,37 @@
 from app.database import Session, get_db
 from app.models.posts import Post
+from app.models.likes import Like
 from fastapi import APIRouter, Depends
 from app.schemas.posts import PostBase, CreatePost, UpdatePost, DeletePost
+from app.schemas.likes import CreateLike
 from typing import List
 
 posts_router = APIRouter()
 
 @posts_router.get('/posts', tags=['Post'], summary="全ての投稿を取得", description="全ての投稿を取得します", response_model=List[PostBase])
 def get_posts(db: Session = Depends(get_db), offset: int = 0, limit: int = 100):
-    print('[get_posts] start')
+    print('[START] get posts')
     return db.query(Post).offset(offset).limit(limit).all()
 
 @posts_router.get('/posts/{post_id}', tags=['Post'], summary="1件の投稿内容を取得", description="指定された投稿IDの投稿内容を取得します", response_model=PostBase)
 def get_post(db: Session = Depends(get_db), id:int = 0):
     print('[START] get post id:',id)
     return db.query(Post).filter(Post.id == id).first()
+
+@posts_router.post('/posts/{post_id}/like', tags=['Post'], summary="1件の投稿にいいねをつける", description="1件の投稿にいいねをつける", response_model=None)
+def take_like(body: CreateLike, post_id: int ,db: Session = Depends(get_db)):
+    print('[START] take like to post')
+    user_id = body.user_id
+
+    like = Like(
+        user_id=user_id,
+        post_id=post_id
+    )
+    db.add(like)
+    db.commit()
+
+    return db.query(Like).filter(Like.post_id == post_id).first()
+
 
 @posts_router.put('/posts/{post_id}', tags=['Post'], summary="投稿内容を更新", description="指定された投稿の内容を更新します", response_model=None)
 def update_post(body: UpdatePost, post_id: int = 0, db: Session = Depends(get_db)):

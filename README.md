@@ -68,7 +68,8 @@ npm install openapi-typescirpt -D
 ```
 
 2. openapi.jsonのダウンロード
-swaggerを起動し、「http://127.0.0.1:8000/redoc」へアクセスし「openapi.json」をダウンロード
+swaggerを起動し、「http://127.0.0.1:8000/redoc」
+へアクセスし「openapi.json」をダウンロード
 
 TODO: 起動中のFastAPIから直接インプットできる方法を探す
 
