@@ -1,6 +1,7 @@
 from app.database import Session, get_db
 from app.models.users import User
 from app.models.posts import Post
+from app.models.follows import Follow
 from app.schemas.posts import PostBase, CreatePost
 from app.schemas.users import CreateUser, UserBase, UpdateUser, DeleteUser
 from fastapi import APIRouter, Depends
@@ -68,6 +69,22 @@ def update_user(body: UpdateUser, id: str = '', db: Session = Depends(get_db)):
     db.commit()
 
     return user
+
+@users_router.post('/users/{follower_id}/follow/{following_id}', tags=['User'], summary="ユーザをフォローします", description="ユーザをフォローします")
+def follow_user(follower_id: str, following_id: str, db: Session = Depends(get_db)):
+    print('[START] follow user')
+    print(follower_id)
+    print(following_id)
+
+    follow = Follow(
+        follower_id=follower_id,
+        following_id=following_id
+    )
+
+    db.add(follow)
+    db.commit()
+
+    return db.query(Follow).filter(Follow.follower_id == follower_id).first()
 
 @users_router.delete('/users/{user_id}', tags=['User'], summary="ユーザを削除", description="指定されたユーザIDのユーザ情報を削除します", response_model=DeleteUser)
 def delete_user(db: Session = Depends(get_db), user_id: str = ''):
